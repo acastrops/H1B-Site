@@ -2,12 +2,12 @@
 Repository for the first project in the Data Storage and Retrieval class. Fall 2017.
 
 Deadline is October 31st (or 3 weeks, roughly).
-
-* 2017-10-12: Created a basic flask/skeleton framework that can connect to the remote (currently empty) database. Shared the secrets file on Google Drive, which goes in '<project root>/h1b/'.
  
- ## Installation
+## Installation
  
- * Create a virtual Python environment with `virtualenv`. Run `python package_and_run.py` to package the app and start the server. After it's packaged you can just do `flask run`.
+ * Create a virtual Python environment with `virtualenv`. Run `python package_and_run.py` to package the app and start the server. This also sets the environment variables needed for `flask` to run, so as of right now this script needs to run every time to start up the server.
+ 
+* Shared the `secrets` file on Google Drive, which goes in `<project root>/h1b/`.
 
 
 ## Data Source

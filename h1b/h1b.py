@@ -1,36 +1,32 @@
-import os
-from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
+from h1b import app
+from .models import db
 
-import psycopg2
-
-## Initialize the 'h1b' app and load in the sooper secret keys
-app = Flask(__name__)
+# Initialize the 'h1b' app and load in the sooper secret keys
 app.config.from_object(__name__)
 
+# Hacky way to allow the secrets import when migrating and
+# running the app. *Probably* should be changed
+try:
+    with open('./h1b/secrets') as f:
+        lines = f.read().splitlines()
+except:
+    with open('./secrets') as f:
+        lines = f.read().splitlines()
 
-with open('./h1b/secrets') as f:
-	lines = f.read().splitlines()
+# Read in the secret values and pass them to the app config dictionary
+# to allow connection to the database
 keys = dict([line.split('::::') for line in lines if line[0] != '#'])
 
-app.config.update(dict(
-	DATABASE = keys['H1BDB_HOST'],
-	SECRET_KEY = keys['SECRET_KEY'],
-	USERNAME = keys['H1BDB_USERNAME'],
-	PASSWORD = keys['H1BDB_PASSWORD']
-))
+h1bdb_uri = 'postgresql+psycopg2://{}:{}@{}:5432/h1bdb'.format(
+    keys['H1BDB_USERNAME'],
+    keys['H1BDB_PASSWORD'],
+    keys['H1BDB_HOST'])
 
+app.config['SQLALCHEMY_DATABASE_URI'] = h1bdb_uri
+db.init_app(app)
+
+app.config['DEBUG'] = True  # Disable in production
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
-## Create index view, just as a default
-@app.route('/')
-def show_index():
-	return render_template('index.html')
-
-## Initialize the database connection settings
-## TODO: Split into new file, but not neccessary until the database is populated
-#from sqlalchemy import create_engine
-#from sqlalchemy import Column, String
-#from sqlalchemy.ext.declarative import declarative_base  
-#from sqlalchemy.orm import sessionmaker
-#db_string = 'postgresql+psycopg2://{1}:{2}@{3}:5432/h1bdb'.format(keys['H1BDB_PASSWORD'], keys['H1BDB_USERNAME'], keys['H1BDB_HOST'])
-#db = create_engine(db_string)
+if __name__ == '__main__':
+    app.run()
