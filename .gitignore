@@ -1,9 +1,9 @@
 # Directories
 data/
 h1b_env/
+instance/
 
 # Files
-secrets
 *~
 
 ### R Notebook useless files

@@ -7,7 +7,7 @@ Deadline is October 31st (or 3 weeks, roughly).
  
  * Create a virtual Python environment with `virtualenv`. Run `python package_and_run.py` to package the app and start the server. This also sets the environment variables needed for `flask` to run, so as of right now this script needs to run every time to start up the server.
  
-* Shared the `secrets` file on Google Drive, which goes in `<project root>/h1b/`.
+* Shared the `config.py` file on Google Drive, which goes in `<project root>/h1b/instance/`. There is another `config.py` in `/h1b/`.
 
 
 ## Data Source
