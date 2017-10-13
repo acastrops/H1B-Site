@@ -8,6 +8,7 @@ secrets
 
 ### R Notebook useless files
 .Rhistory
+knitted/
 
 ### Past here is from https://github.com/github/gitignore/blob/master/Python.gitignore
 
