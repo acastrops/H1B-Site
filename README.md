@@ -6,6 +6,16 @@ Repository for the first project in the Data Storage and Retrieval class. Fall 2
 * 2017-10-12: Created a basic flask/skeleton framework that can connect to the remote (currently empty) database. Shared the secrets file on Google Drive, which goes in '<project root>/h1b/'. Run `python package_and_run.py` to package the app and start the server. After it's packaged you can just do `flask run`.
 
 
+# Branches
+
+* master
+
+  * Full, merged branch. "Production"
+  
+* cleaning_processing
+  
+  * For cleaning the data and manipulating it into a usable form.
+
 ## Data Source
 
 Data was pulled from 
