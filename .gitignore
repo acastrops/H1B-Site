@@ -6,6 +6,9 @@ h1b_env/
 secrets
 *~
 
+### R Notebook useless files
+.Rhistory
+
 ### Past here is from https://github.com/github/gitignore/blob/master/Python.gitignore
 
 # Byte-compiled / optimized / DLL files
