@@ -23,10 +23,6 @@ library(readr)
 
 ## This will load FY_02->FY_05 without errors.
 
-## Doesn't output anything yet, need to decide what we are interested
-## in/what columns we need, and be able to coerce the newer data into
-## the same form.
-
 dfl <- list(1:5)
 
 for(i in 2:5){
