@@ -1,46 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "base.html" %}
 
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <title>H1B Visa Skeleton</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
+{% import "bootstrap/utils.html" as utils %}
 
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% block content %}
 
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
-
-</head>
-<body>
-
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <div class="container">
-    <div class="row">
-      <div class="one-half column">
-        <h4>Basic Page</h4>
-        <p>This is just a placeholder template for the index page.</p>
+<div class="container">
+  {%- with messages = get_flashed_messages(with_categories=True) %}
+	{%- if messages %}
+      <div class="row">
+		<div class="col-md-12">
+          {{utils.flashed_messages(messages)}}
+		</div>
       </div>
-    </div>
-  </div>
+  {%- endif %}
+{%- endwith %}
 
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-</body>
-</html>
+<h1>Welcome to Flask-Bootstrap</h1>
+  <p>This example application demonstrates some (but not all!) of the
+    features of <a href="http://pythonhosted.org/Flask-Bootstrap">
+    Flask-Bootstrap</a>.</p>
+    <p>
+      <a class="btn btn-lg btn-default" role="button"
+         href="http://pythonhosted.org/Flask-Bootstrap" >Show docs</a>
+    </p>
+
+	<p>
+	</p>
+</div>
+{% endblock %}
