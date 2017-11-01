@@ -5,6 +5,7 @@ instance/
 
 # Files
 *~
+*#
 
 ### R Notebook useless files
 .Rhistory
