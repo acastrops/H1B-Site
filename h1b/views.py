@@ -4,6 +4,7 @@ from flask import render_template
 from h1b import app
 import sys
 
+
 # Create index view, just as a default
 @app.route('/')
 def index():
@@ -17,11 +18,13 @@ def about():
 
 @app.route('/case/<int:number>')
 def case(number):
+    # This isn't working right for some bizarre reason
     case = Cases.query.filter_by(id_=number).first_or_404()
     return render_template('case.html', case=case)
 
 
 @app.route('/job/<code>')
 def job_code(code):
+    # But this does work??
     job = JobCode.query.filter_by(code=code).first_or_404()
     return render_template('job_code.html', job=job)
