@@ -1,6 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from h1b import db
 
 
 class Cases(db.Model):
@@ -58,7 +56,7 @@ class Employer(db.Model):
 class JobCode(db.Model):
 
     code = db.Column(db.String(), primary_key=True)
-    title = db.Column(db.String())
+    name = db.Column(db.String())
 
     def __init__(self, code, title):
         self.code = code

@@ -7,14 +7,17 @@ Flask-Migrate==2.1.1
 flask-nav==0.6
 Flask-Script==2.0.6
 Flask-SQLAlchemy==2.3.2
--e git+https://github.com/mackenziedg/DataStorage2017.git@7fccbcac273ead4ad3efbc01e2bc4b7fb4cbec6e#egg=h1b
+-e git+https://github.com/mackenziedg/DataStorage2017.git@aa3f04f1c8c6191a540fce4acf49006d8678832c#egg=h1b
 itsdangerous==0.24
 Jinja2==2.9.6
 Mako==1.0.7
 MarkupSafe==1.0
+numpy==1.13.3
+pandas==0.21.0
 psycopg2==2.7.3.1
 python-dateutil==2.6.1
 python-editor==1.0.3
+pytz==2017.3
 six==1.11.0
 SQLAlchemy==1.1.14
 visitor==0.1.3
