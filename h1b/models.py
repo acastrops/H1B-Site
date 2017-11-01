@@ -3,11 +3,11 @@ from h1b import db
 
 class Cases(db.Model):
 
-    id_ = db.Column(db.String(), primary_key=True)
-    employer_id = db.Column(db.Integer, db.ForeignKey('employer.id_'), nullable=False)
+    id = db.Column(db.String(), primary_key=True)
+    employer_id = db.Column(db.Integer, db.ForeignKey('employer.id'), nullable=False)
     nbr_immigrants = db.Column(db.Integer)
 
-    job_code = db.Column(db.String(3))
+    job_title = db.Column(db.String(3))
     # In a perfect world this would be a foreign key to
     # job_code(codes), but there's a lot of job_codes in the cases
     # which aren't valid job codes
@@ -18,12 +18,12 @@ class Cases(db.Model):
     rate_per = db.Column(db.String())
     prevailing_wage = db.Column(db.Float)
 
-    def __init__(self, id_, employer_id, nbr_immigrants, job_code,
+    def __init__(self, id_, employer_id, nbr_immigrants, job_title,
                  begin_date, end_date, wage_rate, rate_per, prevailing_wage):
-        self.id_ = id_
+        self.id = id
         self.employer_id = employer_id
         self.nbr_immigrants = nbr_immigrants
-        self.job_code = job_code
+        self.job_title = job_title
         self.begin_date = begin_date
         self.end_date = end_date
         self.wage_rate = wage_rate
@@ -36,14 +36,14 @@ class Cases(db.Model):
 
 class Employer(db.Model):
 
-    id_ = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
     city = db.Column(db.String())
     state = db.Column(db.String(2))
     postal_code = db.Column(db.String())
 
-    def __init__(self, id_, name, city, state, postal_code):
-        self.id_ = id_
+    def __init__(self, id, name, city, state, postal_code):
+        self.id = id
         self.name = name
         self.city = city
         self.state = state
@@ -51,16 +51,3 @@ class Employer(db.Model):
 
     def __rep__(self):
         return '{}'.format(self.name)
-
-
-class JobCode(db.Model):
-
-    code = db.Column(db.String(), primary_key=True)
-    name = db.Column(db.String())
-
-    def __init__(self, code, title):
-        self.code = code
-        self.title = title
-
-    def __rep__(self):
-        return '{}: {}'.format(self.code, self.title)
