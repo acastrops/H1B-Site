@@ -79,9 +79,11 @@ df = df.drop('Visa_Class', axis=1)
 
 # Removes the float
 df['Nbr_Immigrants'] = df.Nbr_Immigrants.apply(lambda x: -1 if np.isnan(x) else np.int32(x))
+df = df[df.Wage_Rate != 'DENIED']
 
 # Creates a dataframe of unique employers and assigns each a code
 employers = df[["Name", "City", "State", "Postal_Code"]].drop_duplicates()
+employers.reset_index(drop=True, inplace=True)
 employers = employers.reset_index().rename(columns={'index': 'id'})
 
 print('Joining...')
