@@ -8,7 +8,8 @@ nav = Nav()
 
 nav.register_element('top', Navbar(
     View('Main', '.index'),
-    View('About', '.about')
+    View('Search', '.search'),
+    View('About', '.about'),
 ))
 
 app = Flask(__name__)

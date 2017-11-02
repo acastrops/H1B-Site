@@ -1,7 +1,8 @@
-from .models import Cases, JobCode
-
-from flask import render_template
+from flask import render_template, request, flash, redirect
 from h1b import app
+from .forms import EmployerSearchForm
+from .models import Cases, Employer
+
 import sys
 
 
@@ -18,13 +19,21 @@ def about():
 
 @app.route('/case/<int:number>')
 def case(number):
-    # This isn't working right for some bizarre reason
     case = Cases.query.filter_by(id_=number).first_or_404()
     return render_template('case.html', case=case)
 
 
-@app.route('/job/<code>')
-def job_code(code):
-    # But this does work??
-    job = JobCode.query.filter_by(code=code).first_or_404()
-    return render_template('job_code.html', job=job)
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    form = EmployerSearchForm()
+
+    if form.validate_on_submit():
+        return redirect('/employer/{}'.format(form.id_.data))
+
+    return render_template('search.html', title='Search', form=form)
+
+
+@app.route('/employer/<int:number>')
+def employer(number):
+    employer = Employer.query.filter_by(id_=number).first_or_404()
+    return render_template('employer.html', employer=employer)

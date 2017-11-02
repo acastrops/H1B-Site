@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if employer %}
+  <div id="container">
+	<h1>{{employer.name}}</h1>
+
+	<h2>{{employer.city}}, {{employer.state}} {{employer.postal_code}}</h2>
+  </div>
+{% else %}
+
+  <p>No employer selected!</p>
+  
+{% endif %}
+
+{% endblock %}
