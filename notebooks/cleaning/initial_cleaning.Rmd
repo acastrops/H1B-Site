@@ -23,10 +23,6 @@ library(readr)
 
 ## This will load FY_02->FY_05 without errors.
 
-## Doesn't output anything yet, need to decide what we are interested
-## in/what columns we need, and be able to coerce the newer data into
-## the same form.
-
 dfl <- list(1:5)
 
 for(i in 2:5){
@@ -37,6 +33,7 @@ for(i in 2:5){
                                   SUBMITTED_DATE=col_datetime(),
                                   BEGIN_DATE=col_date("%m/%d/%Y"),
                                   END_DATE=col_date("%m/%d/%Y"),
+                                  JOB_CODE=col_character(),
                                   CERTIFIED_BEGIN_DATE=col_date("%m/%d/%Y"),
                                   CERTIFIED_END_DATE=col_date("%m/%d/%Y"),
                                   DOL_DECISION_DATE=col_date("%m/%d/%Y"),
@@ -50,10 +47,6 @@ for(i in 2:5){
     dfl[[i-1]] <- df
 
 }
-
-dfp <- (problems(df))  ## There are a handful of misentered data in
-                       ## the FY2005 file that could in theory be
-                       ## manually corrected.
 ```
 
 The data for FY2006 has a few wonky things, so we'll do it separately
@@ -98,6 +91,17 @@ dfl[[i-1]] <- df
 df <- bind_rows(dfl)  ## Vertically concats the dataframes.
 
 ## df is now ~1M rows long w/ all of the data from 2002-2006
+```
+
+To write the data to a new file,
+
+```{r}
+write_csv(df, "../../data/clean/H1B_efile_FY02-FY06_clean.csv")
+```
+
+```{r}
+rm(list=ls())
+df <- read_csv("../../data/clean/H1B_efile_FY02-FY06_clean.csv")
 ```
 
 The format for 2007-2017 is very different, and differs from year to year more than the data from 2002-2007, so these files will take some time to clean. The following code works for 2017, but breaks on 2016 and below.
