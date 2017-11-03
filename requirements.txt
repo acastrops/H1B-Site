@@ -1,4 +1,5 @@
 alembic==0.9.5
+bokeh==0.12.10
 click==6.7
 dominate==2.3.1
 Flask==0.12.2
@@ -8,7 +9,7 @@ flask-nav==0.6
 Flask-Script==2.0.6
 Flask-SQLAlchemy==2.3.2
 Flask-WTF==0.14.2
--e git+https://github.com/mackenziedg/DataStorage2017.git@b71536b88111179d87fcbbcd158d0b13fd2bb90c#egg=h1b
+-e git+https://github.com/mackenziedg/DataStorage2017.git@26f936f17e80857411d9bdc42d6109b652ba94db#egg=h1b
 itsdangerous==0.24
 Jinja2==2.9.6
 Mako==1.0.7
@@ -19,8 +20,10 @@ psycopg2==2.7.3.1
 python-dateutil==2.6.1
 python-editor==1.0.3
 pytz==2017.3
+PyYAML==3.12
 six==1.11.0
 SQLAlchemy==1.1.14
+tornado==4.5.2
 visitor==0.1.3
 Werkzeug==0.12.2
 WTForms==2.1

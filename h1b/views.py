@@ -2,6 +2,7 @@ from flask import render_template, request, flash, redirect
 from h1b import app
 from .forms import EmployerSearchForm
 from .models import Cases, Employer
+from .helpers import create_cases_by_state
 
 import sys
 
@@ -37,3 +38,10 @@ def search():
 def employer(number):
     employer = Employer.query.filter_by(id_=number).first_or_404()
     return render_template('employer.html', employer=employer)
+
+
+@app.route('/graph_test')
+def graph_test():
+    script, div, js, css = create_cases_by_state()
+
+    return render_template('graph_test.html', div=div, script=script, js=js, css=css)

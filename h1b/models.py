@@ -34,7 +34,6 @@ class Cases(db.Model):
     def __rep__(self):
         return 'Case id: {}'.format(self.id_)
 
-
 class Employer(db.Model):
 
     id_ = db.Column(db.Integer, primary_key=True)
