@@ -15,6 +15,7 @@ nav.register_element('top', Navbar(
 app = Flask(__name__)
 app.config.from_envvar('H1B_SETTINGS')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 Bootstrap(app)
 nav.init_app(app)
 
