@@ -5,3 +5,6 @@ from wtforms.validators import DataRequired
 
 class EmployerSearchForm(Form):
     id_ = IntegerField('number', validators=[DataRequired()])
+
+class CasesSearchForm(Form2):
+    id_ = IntegerField('number', validators=[DataRequired()])
