@@ -1,3 +1,12 @@
+'''
+This will clean the H1B_FY*.csv files and combine them into:
+
+- cases_all.csv
+- employers_all.csv
+
+which are all of the (valid) cases and employers.
+'''
+
 import numpy as np
 import pandas as pd
 
@@ -24,7 +33,7 @@ for i in range(6, 18):
                    "POSTAL_CODE", "NBR_IMMIGRANTS", "JOB_TITLE",
                    "BEGIN_DATE", "END_DATE", "WAGE_RATE_1",
                    "RATE_PER_1", "PREVAILING_WAGE_1"]
-    elif i == 9 or i in range(11, 15):
+    elif i in [9, 11, 12, 13, 14]:
         usecols = ["LCA_CASE_EMPLOYER_NAME", "LCA_CASE_EMPLOYER_CITY", "LCA_CASE_EMPLOYER_STATE",
                    "LCA_CASE_EMPLOYER_POSTAL_CODE", "TOTAL_WORKERS", "LCA_CASE_JOB_TITLE",
                    "LCA_CASE_EMPLOYMENT_START_DATE", "LCA_CASE_EMPLOYMENT_END_DATE", "LCA_CASE_WAGE_RATE_FROM",
@@ -55,24 +64,24 @@ for i in range(6, 18):
         names.append('Visa_Class')
 
     df.append(pd.read_csv(filename, sep='~',
-                          usecols=usecols,
                           dtype={usecols[3]: str},
                           encoding='latin1',
                           low_memory=False))
 
+    df[-1] = df[-1][usecols]
     df[-1] = df[-1].rename(columns=dict(zip(usecols, names)))
     df[-1]['Name'] = df[-1].Name.str.replace('_', ' ')
     df[-1]['City'] = df[-1].City.str.replace('_', ' ')
     df[-1]['Job_Title'] = df[-1].Job_Title.str.replace('_', ' ')
-    if i not in [6, 8, 10]:
-        df[-1] = df[-1][df[-1].Visa_Class == 'R']
+    if 'Visa_Class' in df[-1].columns:
+        df[-1] = df[-1][df[-1].Visa_Class.isin(['R', 'H-1B'])]
 
-    print("Loaded {}".format(filename))
+    print("Loaded {} rows from {}".format(df[-1].shape[0], filename))
 
 # Concat the individual years
 df = pd.concat(df)
 
-print('Loaded!\nProcessing...')
+print('Loaded all files!\nProcessing...')
 
 # We don't need this column anymore
 df = df.drop('Visa_Class', axis=1)
