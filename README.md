@@ -1,16 +1,28 @@
-# DSR_Project1
-Repository for the first project in the Data Storage and Retrieval class. Fall 2017.
+# H1-B Explorer
 
-Deadline is October 31st (or 3 weeks, roughly).
+H1-B filing data is used to attempt to understand 
+
+1. Which companies are hiring the most H1-B workers?
+
+2. Who pays the most for foreign talent? The lease?
+
+3. How do salaries for H1-B workers compare to average salaries in the area?
+
+4. What fields are most in demand now? How is that different from 5 or 10 years ago?
  
 ## Installation
- 
- * Create a virtual Python environment with `virtualenv`. Run `python package_and_run.py` to package the app and start the server. This also sets the environment variables needed for `flask` to run, so as of right now this script needs to run every time to start up the server.
- 
-* Shared the `config.py` file on Google Drive, which goes in `<project root>/h1b/instance/`. There is another `config.py` in `/h1b/`.
 
+* Clone the repository with `git clone https://github.com/mackenziedg/H1B-Site.git`
+ 
+* Create a virtual Python environment with [`virtualenv`](https://virtualenv.pypa.io/en/stable/)
+ 
+* Activate the virtual environment and install the neccessary packages with `pip install -r requirements.txt`
+ 
+* Run `python package_and_run.py` to package the app and start the server. This also sets the environment variables needed for `flask` to run, so as of right now this script needs to run every time to start up the server
+ 
+* A file `<package_root>/h1b/instances/config.py` is required to connect to the database
 
-## Data Source
+## Data Sources
 
 Data was pulled from 
 

@@ -7,17 +7,17 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12 text-center">
-    <form action="" method="post" name="login">
-      {{ form.hidden_tag() }}
-      <p>
-        Enter a number:<br>
-        {{ form.id_ }}<br>
-      </p>
-          <p><input type="submit" value="Search"></p>
-    </form>
-      </ul>
-    </div>
-  </div>
+	  <form action="" method="POST">
+		<div class="form-group input-lg">
+		  <label for="id_">Enter a number</label>
+		  {{ form.hidden_tag() }}
+		  {{ form.id_ }}
+		</div>
+        <button type="submit" value="Search" class="btn btn-lg">Search</button>
+      </form>
+</ul>
+</div>
+</div>
 </div>
 
 
