@@ -19,18 +19,26 @@ def about():
 
 @app.route('/case/<int:number>')
 def case(number):
-    case = Cases.query.filter_by(id_=number).first_or_404()
+    Cases.query.filter_by(id_=number).first_or_404()
     return render_template('case.html', case=case)
 
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     form = EmployerSearchForm()
-
     if form.validate_on_submit():
         return redirect('/employer/{}'.format(form.id_.data))
+    
+    return render_template('search.html', title='Search',form=form)
 
-    return render_template('search.html', title='Search', form=form)
+#@app.route('/searchCases', methods=['GET', 'POST'])
+#def searchCases():
+#    form2 = CasesSearchForm()
+#    
+#    if form2.validate_on_submit():
+#        return redirect('/employer/{}'.format(form2.id_.data))
+#    
+#    return render_template('search.html', title='Search',form2=form2)
 
 
 @app.route('/employer/<int:number>')
