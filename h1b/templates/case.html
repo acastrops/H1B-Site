@@ -2,8 +2,14 @@
 
 {% block content %}
 
-<div id='container'>
-  {{ case.id_ }}, {{ case.wage_rate }}, {{ case.job_title }}
-</div>
+{% if case %}
+    <div id="container">
+      {{ case.id_ }}, {{ case.wage_rate }}, {{ case.job_title }}
+    </div>
+{% else %}
+
+  <p>No case selected!</p>
+
+{% endif %}
 
 {% endblock %}
