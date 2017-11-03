@@ -9,6 +9,8 @@ except:
 cur = conn.cursor()
 
 cur.execute("select job_title, substring(begin_date, '\d{4}') as yr, count(*) from cases group by job_title, yr limit 10;")
+rows = cur.fetchall()
+
 
 yeard = dict()
 [yeard.update({y: []}) for y in range(2002, 2019)]
