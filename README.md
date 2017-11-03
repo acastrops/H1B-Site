@@ -20,7 +20,7 @@ H1-B filing data is used to attempt to understand
  
 * Run `python package_and_run.py` to package the app and start the server. This also sets the environment variables needed for `flask` to run, so as of right now this script needs to run every time to start up the server
  
-* A file `<package_root>/h1b/instances/config.py` is required to connect to the database
+* A file `<package_root>/h1b/instance/config.py` is required to connect to the database
 
 ## Data Sources
 
