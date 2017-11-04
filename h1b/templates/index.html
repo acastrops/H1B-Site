@@ -2,6 +2,12 @@
 
 {% import "bootstrap/utils.html" as utils %}
 
+{% block scripts %}
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.10.min.js"></script>
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.10.min.js"></script>
+{{super()}}
+{% endblock %}
+
 {% block content %}
 <div class="container">
   {%- with messages = get_flashed_messages(with_categories=True) %}
@@ -15,14 +21,57 @@
 {%- endwith %}
 
 
-<div class="jumbotron">
+<div class="container">
   <div class="row">
 	<div class="col-lg-12 text-center">
       <img src="{{url_for('static', filename='logo5.png')}}" class="img-responsive center-block headshot"/>
       <h1>Welcome to Vis(a)-vis!</h1>	  
       <p>The solution for all your (3) burning questions about the employers of <a href="https://en.wikipedia.org/wiki/H-1B_visa"> H1-B</a> visa workers!</p>	  
 	  <a class="btn btn-primary btn-lg" href="{{url_for('search')}}" role="button">Try us!</a>
+
 	  <hr />
+	  
+	  <div class="row">
+		<p class="small" style="margin: 0 75% 0 15%;">Mouse over me!</p>
+		<div class="col-md-8">
+		  {{ js_case|safe }}
+		  {{ css_case|safe }}
+		  {{ script_case|safe }}
+		  {{ div_case|safe }}
+		</div>
+		
+		<div class="col-md-1">
+		</div>
+		
+		<div class="col-md-4 text-left">
+
+		  <h3>Number of H-1B applications by state</h3>
+		  <h4>2002-2017</h4>
+		  <p>Half of all H-1B visa requests are issued in California, New Jersey, Texas, New York, or Pennsylvania. California alone accounts for 15% of the total requests.</p>
+		</div>
+	  </div>
+
+	  <hr />
+	  
+      <div class="row">
+
+		<div class="col-md-8">
+		  {{ js_wage|safe }}
+		  {{ css_wage|safe }}
+		  {{ script_wage|safe }}
+		  {{ div_wage|safe }}
+		</div>
+
+		<div class="col-md-1">
+		</div>
+
+		<div class="col-md-4 text-left">
+
+		  <h3>Average wage for H-1B visa workers by state</h3>
+		  <h4>2002-2017</h4>
+		  <p>The highest wages for H1-B workers, however, are not in the states that want them most. North Carolina and Louisiana, ranked 10th and 35th, respectively, in number of H1-B visa requests issued, have by far the highest mean wages at almost $145k and $135k. This is due to typos.</p>
+		</div>
+	  </div>
 
 
 	</div>

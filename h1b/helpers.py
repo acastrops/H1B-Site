@@ -1,6 +1,3 @@
-from math import log
-import sys
-
 from bokeh.embed import components
 from bokeh.models import HoverTool, ColorBar, LinearColorMapper, BasicTicker
 from bokeh.palettes import grey
