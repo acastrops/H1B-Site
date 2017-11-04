@@ -1,5 +1,19 @@
 {% extends "base.html" %}
 
+{% block scripts %}
+
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+
+  {{super()}}
+{% endblock %}
+
+{% block styles -%}
+  {{super()}}
+  
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
+{% endblock %}
+
 {% block content %}
 
 
@@ -7,8 +21,8 @@
 <div class="container">
   <div class="row">
 
-	<table class="table">
-	  <thead class="blue-grey lighten-4">
+	<table id="results" class="table table-striped">
+	  <thead>
 		<th>Job ID</th>
 		<th class="text-right">Employer</th>
 		<th class="text-right">City</th>
@@ -19,19 +33,28 @@
 	  </thead>
 	  <tbody>
 		{% for case, employers in data %}
-	  <tr>
-		<td>{{ case.id_ }}</td>
-		<td class="text-right">{{ employers.name }}</td>
-		<td class="text-right">{{ employers.city }}</td>
-		<td class="text-right">{{ employers.state }}</td>
-		<td>{{ case.wage_rate }}</td>
-		<td>{{ case.prevailing_wage }}</td>
-		<td class="text-right">{{ case.job_title }}</td>
-	  </tr>
-	  {% endfor %}
+		  <tr>
+			<td>{{ case.id_ }}</td>
+			<td class="text-right">{{ employers.name }}</td>
+			<td class="text-right">{{ employers.city }}</td>
+			<td class="text-right">{{ employers.state }}</td>
+			<td>{{ case.wage_rate }}</td>
+			<td>{{ case.prevailing_wage }}</td>
+			<td class="text-right">{{ case.job_title }}</td>
+		  </tr>
+		{% endfor %}
 	  </tbody>
 	</table>
 	
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+  $('#results').DataTable();
+  $('select').addClass('mdb-select');
+  $('.mdb-select').material_select();
+  });
+</script>
+
 {% endblock %}
