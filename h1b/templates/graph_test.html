@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.10.min.js"></script>
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.10.min.js"></script>
+{{super()}}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="row">
+	<h1>Number of H-1B applications by state</h1>
+	<h4>2002-2017</h4>
+	<div class="col-md-8">
+	  {{ js_case|safe }}
+	  {{ css_case|safe }}
+	  {{ script_case|safe }}
+	  {{ div_case|safe }}
+	</div>
+
+	<div class="col-md-4">
+	  <h2>Description</h2>
+
+	  <p>Test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test.</p>
+	</div>
+  </div>
+
+    <div class="row">
+	<h1>Average wage for H-1B visa workers by state</h1>
+	<h4>2002-2017</h4>
+	<div class="col-md-8">
+	  {{ js_wage|safe }}
+	  {{ css_wage|safe }}
+	  {{ script_wage|safe }}
+	  {{ div_wage|safe }}
+	</div>
+
+	<div class="col-md-4">
+	  <h2>Description</h2>
+
+	  <p>Test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test.</p>
+	</div>
+  </div>
+
+</div>
+{% endblock %}
