@@ -15,14 +15,15 @@
 {%- endwith %}
 
 
-<div class="container">
+<div class="jumbotron">
   <div class="row">
 	<div class="col-lg-12 text-center">
+      <img src="{{url_for('static', filename='logo5.png')}}" class="img-responsive center-block headshot"/>
       <h1>Welcome to Vis(a)-vis!</h1>	  
       <p>The solution for all your (3) burning questions about the employers of <a href="https://en.wikipedia.org/wiki/H-1B_visa"> H1-B</a> visa workers!</p>	  
 	  <a class="btn btn-primary btn-lg" href="{{url_for('search')}}" role="button">Try us!</a>
 	  <hr />
-	  <img src="{{url_for('static', filename='logo5.png')}}" class="img-responsive center-block headshot"/>
+
 
 	</div>
   </div>
