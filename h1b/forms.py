@@ -1,10 +1,7 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import IntegerField
-from wtforms.validators import DataRequired
+from wtforms.validators import Optional
 
 
-class EmployerSearchForm(Form):
-    id_ = IntegerField('number', validators=[DataRequired()])
-
-class CasesSearchForm(Form2):
-    id_ = IntegerField('number', validators=[DataRequired()])
+class SearchForm(FlaskForm):
+    wage = IntegerField('number', [Optional()])

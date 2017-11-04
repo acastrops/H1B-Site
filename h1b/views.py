@@ -1,6 +1,7 @@
 from flask import render_template, request, flash, redirect
 from h1b import app
-from .forms import EmployerSearchForm
+from sqlalchemy import func
+from .forms import SearchForm
 from .models import Cases, Employer
 
 import sys
@@ -17,28 +18,27 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/case/<int:number>')
-def case(number):
-    Cases.query.filter_by(id_=number).first_or_404()
-    return render_template('case.html', case=case)
+@app.route('/results/<int:wage>')
+def results(wage):
+    # cases = Cases.query.filter(Cases.wage_rate > wage).order_by(Cases.wage_rate).limit(10)
+    cases = Cases.query.filter(Cases.wage_rate.ilike('y%')).order_by(Cases.wage_rate).limit(10)
+    ids = [case.employer_id for case in cases]
+    print(ids, file=sys.stderr)
+    employers = Employer.query.filter(Employer.id_.in_(ids)).all()
+
+    data = zip(cases, employers)
+
+    return render_template('results.html', data=data)
 
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
-    form = EmployerSearchForm()
-    if form.validate_on_submit():
-        return redirect('/employer/{}'.format(form.id_.data))
-    
-    return render_template('search.html', title='Search',form=form)
+    form = SearchForm()
 
-#@app.route('/searchCases', methods=['GET', 'POST'])
-#def searchCases():
-#    form2 = CasesSearchForm()
-#    
-#    if form2.validate_on_submit():
-#        return redirect('/employer/{}'.format(form2.id_.data))
-#    
-#    return render_template('search.html', title='Search',form2=form2)
+    if form.validate_on_submit():
+        return redirect('/results/{}'.format(form.wage.data))
+
+    return render_template('search.html', title='Search', form=form)
 
 
 @app.route('/employer/<int:number>')

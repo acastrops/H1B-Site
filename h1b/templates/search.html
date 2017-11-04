@@ -9,40 +9,14 @@
     <div class="col-md-4 text-center">
 	  <form action="" method="POST">
 		<div class="form-group input-lg">
-		  <label for="id_">Employer search</label>
 		  {{ form.hidden_tag() }}
-            <p>
-              Please enter a number:
-          </p>
-		  {{ form.id_ }}
+		  
+		  <label for="wage">Wage search</label>
+		  {{ form.wage }}
+
+          <button type="submit" value="Search" class="btn btn-lg">Search</button>
 		</div>
-          <br>
-            <br>
-          <br/>
-        <button type="submit" value="Search" class="btn btn-lg">Search</button>
       </form>
-        </ul>
-    </div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-4 text-center">
-	  <form action="" method="POST">
-		<div class="form-group input-lg">
-		  <label for="id_">Cases search</label>
-		  {{ form.hidden_tag() }}
-            <p>
-              Please enter a number:
-          </p>
-		  {{ form.id_ }}
-		</div>
-          <br>
-            <br>
-          <br/>
-        <button type="submit" value="Search" class="btn btn-lg">Search</button>
-      </form>
-        </ul>
     </div>
   </div>
 </div>
