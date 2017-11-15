@@ -15,9 +15,10 @@ class Cases(db.Model):
     rate_per = db.Column(db.String())
     prevailing_wage = db.Column(db.String())
     real_wage = db.Column(db.Float)
+    year = db.Column(db.String(4))
 
     def __init__(self, id_, employer_id, nbr_immigrants, job_title,
-                 begin_date, end_date, wage_rate, rate_per, prevailing_wage, real_wage):
+                 begin_date, end_date, wage_rate, rate_per, prevailing_wage, real_wage, year):
         self.id_ = id_
         self.employer_id = employer_id
         self.nbr_immigrants = nbr_immigrants
@@ -28,6 +29,8 @@ class Cases(db.Model):
         self.rate_per = rate_per
         self.prevailing_wage = prevailing_wage
         self.real_wage = real_wage
+        self.year = year
+        # ignore me
 
     def monify(self, wage_rate, prevailing_wage):
         return (Decimal(wage_rate.replace('$', '').replace(',', '')),

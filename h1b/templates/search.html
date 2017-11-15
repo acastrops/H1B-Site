@@ -11,8 +11,17 @@
 		<div class="form-group input-lg">
 		  {{ form.hidden_tag() }}
 		  
-		  <label for="wage">Wage search</label>
-		  {{ form.wage }}
+		  <label for="wage_low">Lower bound on wage:</label>
+		  {{ form.wage_low }}
+		</div>
+		<div class="form-group input-lg">
+		  <label for="wage_high">Upper bound on wage:</label>
+		  {{ form.wage_high }}
+		</div>
+		<div class="form-group input-lg">
+		  <label for="state">In state:</label>
+		  {{ form.state }}
+		</div>
 
           <button type="submit" value="Search" class="btn btn-lg">Search</button>
 		</div>

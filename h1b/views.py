@@ -1,7 +1,8 @@
 from flask import render_template, request, flash, redirect
 from h1b import app
-from sqlalchemy import func
+from sqlalchemy import func, and_, desc
 from .forms import SearchForm
+from . import db
 from .models import Cases, Employer
 from .helpers import create_cases_by_state, create_wages_by_state
 
@@ -23,24 +24,24 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/results/<int:wage>')
-def results(wage):
-    cases = Cases.query.filter(Cases.rate_per.ilike('y%')).order_by(Cases.real_wage.amount.desc()).limit(10)
-    ids = [case.employer_id for case in cases]
-    print(ids, file=sys.stderr)
-    employers = Employer.query.filter(Employer.id_.in_(ids)).all()
-
-    data = zip(cases, employers)
-
-    return render_template('results.html', data=data)
+# oh god don't look at this part
+@app.route('/results/<int:wage_low>/<int:wage_high>/<state>')
+def results(wage_low, wage_high, state):
+    res = db.session.query(Cases, Employer).filter(and_(Cases.real_wage > wage_low,
+                                  Cases.real_wage < wage_high))
+    res = res.join(Employer, Cases.employer_id==Employer.id_).filter(Employer.state.match(state))
+    res = res.order_by(desc(Cases.year)).all()
+    
+    return render_template('results.html', data=res)
 
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     form = SearchForm()
 
-    if form.validate_on_submit():
-        return redirect('/results/{}'.format(form.wage.data))
+    # if form.validate_on_submit():
+    if request.method == 'POST':
+        return redirect('/results/{}/{}/{}'.format(form.wage_low.data, form.wage_high.data, form.state.data))
 
     return render_template('search.html', title='Search', form=form)
 
