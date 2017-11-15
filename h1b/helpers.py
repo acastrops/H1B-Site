@@ -1,10 +1,12 @@
 from bokeh.embed import components
-from bokeh.models import HoverTool, ColorBar, LinearColorMapper, BasicTicker
+from bokeh.models import HoverTool, ColorBar, LinearColorMapper, BasicTicker, Whisker, Range1d
+from bokeh.models.formatters import NumeralTickFormatter
 from bokeh.palettes import grey
 from bokeh.plotting import figure, ColumnDataSource
 from bokeh.resources import INLINE
 from bokeh.sampledata.us_states import data as states
-from bokeh.sampledata.unemployment import data as unemployment
+
+import numpy as np
 
 
 # Preprocessed for speed, counts of how many H-1B applications each state has for 2002-2017
@@ -15,15 +17,17 @@ count_min = counts['MT']
 
 
 # Preprocessed for speed, average H1B wage by state
-avg_wages = {'FL': 59012.195429082, 'LA': 61117.3840982712, 'NM': 66545.7226448705, 'AK': 71449.4536703507, 'NC': 69984.9725894029, 'OR':  64595.766340105, 'VT': 63344.1328374939, 'MS': 61579.2163992118, 'AR': 83511.4570248415, 'IL':  65785.826252886, 'MO':  65826.667903666, 'IN':  63164.014970976, 'HI': 49790.3671336978, 'WY': 78631.5126496377, 'UT': 66425.2243542236, 'MI': 59079.9300108962, 'KS': 58349.9236134477, 'MD': 62033.6372695623, 'VI': 58792.8153992264, 'GA': 59075.5745867341, 'MN': 67971.9182409774, 'WI': 72892.2031108204, 'OH': 64147.7150167882, 'NE': 65581.4832396565, 'CT':  67599.799867161, 'NV': 63029.7528865365, 'OK': 55552.3466952578, 'AL': 59385.3426806741, 'CA':  72282.769358967, 'CO': 66827.3042488573, 'DE': 71813.7577147214, 'WV': 74677.8452534929, 'ND': 95224.4742161797, 'WA': 88322.1490585162, 'KY': 62631.2844277101, 'ME':  66666.780939149, 'RI': 40889.1688800198, 'VA': 58697.6783649352, 'TN': 62487.6464023609, 'SD': 79479.6676713801, 'NH': 62648.1190282254, 'IA': 64466.9335182881, 'SC': 61490.8015849381, 'NY': 74387.4186614052, 'MA': 71030.5076120827, 'NJ': 63766.5437575984, 'TX': 66947.5372873389, 'ID': 79240.5704975066, 'PA': 73640.6717774801, 'AZ': 67374.7785378836, 'MT': 57867.0902611916}
+avg_wages = {'FL': 59012.195429082, 'LA': 61117.3840982712, 'NM': 66545.7226448705, 'AK': 71449.4536703507, 'NC': 69984.9725894029, 'OR':  64595.766340105, 'VT': 63344.1328374939, 'MS': 61579.2163992118, 'AR': 83511.4570248415, 'IL':  65785.826252886, 'MO':  65826.667903666, 'IN':  63164.014970976, 'HI': 49790.3671336978, 'WY': 78631.5126496377, 'UT': 66425.2243542236, 'MI': 59079.9300108962, 'KS': 58349.9236134477, 'MD': 62033.6372695623, 'VI': 58792.8153992264, 'GA': 59075.5745867341, 'MN': 67971.9182409774, 'WI': 72892.2031108204, 'OH': 64147.7150167882, 'NE': 65581.4832396565, 'CT':  67599.799867161, 'NV': 63029.7528865365, 'OK': 55552.3466952578, 'AL': 59385.3426806741, 'CA':  72282.769358967, 'CO': 66827.3042488573, 'DE': 71813.7577147214, 'WV': 74677.8452534929, 'ND': 95224.4742161797, 'WA': 88322.1490585162, 'KY': 62631.2844277101, 'ME':  66666.780939149, 'RI': 40889.1688800198, 'VA': 58697.6783649352, 'TN': 62487.6464023609, 'SD': 79479.6676713801, 'NH': 62648.1190282254, 'IA': 64466.9335182881, 'SC': 61490.8015849381, 'NY': 74387.4186614052, 'MA': 71030.5076120827, 'NJ': 63766.5437575984, 'TX': 66947.5372873389, 'ID': 79240.5704975066, 'PA': 73640.6717774801, 'AZ': 67374.7785378836, 'MT': 57867.0902611916, 'DC': 66456.3437723182}
 
 
 # Mean/std wage by year
 yr = [2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
-mean_wage = [54000.651, 55021.505, 55542.814, 58362.468, 62278.873, 64436.768, 66286.208, 67715.390, 72214.902, 71706.479, 73556.187, 74371.041, 75097.400, 84069.531, 88075.526, 84437.902]
-popstd_wage = [37712.751, 34879.977, 33167.970, 33892.825, 35133.257, 36004.966, 35418.558, 40787.024, 37741.218, 32649.911, 33474.631, 31464.652, 28920.936, 38550.995, 38990.029, 39157.023]
+mean_wage = np.array([60054.815, 60620.562, 60373.805, 63028.128, 67129.455, 69198.940, 70607.377, 75342.197, 77179.807, 74936.084, 77114.969, 77118.744, 77075.323, 87134.622, 90761.583, 86888.704]) 
+popstd_wage = np.array([34828.398, 31674.031, 30103.747, 30793.935, 31712.285, 32638.026, 32138.689, 35761.377, 33759.594, 29544.810, 30023.148, 28552.224, 26575.596, 35689.036, 36380.335, 36934.929])
+upper = mean_wage + popstd_wage 
+lower = (mean_wage - popstd_wage)[::-1]
 
-wage_by_year = ColumnDataSource({'year': yr, 'mean_wg': mean_wage, 'sd_wage': popstd_wage})
+wage_by_year = ColumnDataSource({'year': yr, 'mean_wg': mean_wage})
 
 
 def prepare_source(data):
@@ -106,9 +110,19 @@ def create_cases_by_state():
 
 
 def create_wages_by_year():
-    p = figure(toolbar_location='left', plot_width=plot_width, plot_height=plot_height, tools=tools)
+    p = figure(toolbar_location='left', plot_width=700, plot_height=375)
 
-    p.line('yr', 'mean_wage', source=wage_by_year)
+    band_x = np.append(yr, yr[::-1])
+    band_y = np.append(upper, lower)
+    p.patch(band_x, band_y, fill_color='black', line_color='#999999', fill_alpha=0.1)
+    p.line('year', 'mean_wg', source=wage_by_year, line_width=2, line_color='black')
+
+    p.yaxis[0].formatter = NumeralTickFormatter(format='$0,0.00')
+    p.x_range = Range1d(2002, 2017)
+    p.y_range = Range1d(0, 130000)
+    p.toolbar.logo = None
+    p.toolbar_location = None
+
     js = INLINE.render_js()
     css = INLINE.render_css()
     script, div = components(p)
