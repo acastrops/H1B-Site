@@ -6,4 +6,4 @@ call(['pip3', 'install', '--editable', '.'])
 os.environ['FLASK_APP'] = 'h1b'
 os.environ['H1B_SETTINGS'] = './instance/config.py'
 
-call(['python3', '-m', 'flask', 'run'])
+call(['python3', '-m', 'flask', 'run', '--host=0.0.0.0', '--port=5053'])

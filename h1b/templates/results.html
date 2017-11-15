@@ -35,7 +35,7 @@
 		<th class="text-right">State</th>
 		<th>Wage</th>
 		<th>Prevailing Wage</th>
-		<th>Year</th>
+		<th>Begin Date</th>
 		<th class="text-right">Job Title</th>
 	  </thead>
 	  <tbody>
@@ -45,9 +45,9 @@
 			<td class="text-right">{{ employers.name }}</td>
 			<td class="text-right">{{ employers.city }}</td>
 			<td class="text-right">{{ employers.state }}</td>
-			<td>{{ case.wage_rate }}</td>
+			<td>${{ case.real_wage }}</td>
 			<td>{{ case.prevailing_wage }}</td>
-			<td>{{ case.year }}</td>
+			<td>{{ case.begin_date }}</td>
 			<td class="text-right">{{ case.job_title }}</td>
 		  </tr>
 		{% endfor %}
